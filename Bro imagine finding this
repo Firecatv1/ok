@@ -1,3 +1,5 @@
+while true do
+wait(3)
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
  
@@ -39,4 +41,5 @@ end
  
 while wait(0.1) do
     faceNearestPlayer()
+end
 end
