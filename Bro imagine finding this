@@ -1,0 +1,42 @@
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+ 
+local function getDistance(point1, point2)
+    return (point1 - point2).Magnitude
+end
+ 
+local function findNearestPlayer()
+    local closestPlayer = nil
+    local closestDistance = 23
+ 
+    for _, otherPlayer in ipairs(game.Players:GetPlayers()) do
+        if otherPlayer ~= player then
+            local otherCharacter = otherPlayer.Character
+            if otherCharacter then
+                local distance = getDistance(character.HumanoidRootPart.Position, otherCharacter.HumanoidRootPart.Position)
+                if distance < closestDistance then
+                    closestPlayer = otherPlayer
+                    closestDistance = distance
+                end
+            end
+        end
+    end
+ 
+    return closestPlayer
+end
+ 
+local function faceNearestPlayer()
+    local nearestPlayer = findNearestPlayer()
+ 
+    if nearestPlayer then
+        local nearestCharacter = nearestPlayer.Character
+        if nearestCharacter then
+            local lookVector = (nearestCharacter.HumanoidRootPart.Position - character.HumanoidRootPart.Position).Unit
+            character.HumanoidRootPart.CFrame = CFrame.new(character.HumanoidRootPart.Position, character.HumanoidRootPart.Position + lookVector)
+        end
+    end
+end
+ 
+while wait(0.1) do
+    faceNearestPlayer()
+end
