@@ -7,7 +7,7 @@ end
  
 local function findNearestPlayer()
     local closestPlayer = nil
-    local closestDistance = 23
+    local closestDistance = 20
  
     for _, otherPlayer in ipairs(game.Players:GetPlayers()) do
         if otherPlayer ~= player then
